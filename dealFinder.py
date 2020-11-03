@@ -71,14 +71,14 @@ class DealFinder:
             #with this url we can go through and get all the products on the page
             result=self.saveThePage(url)#this will create a soup object we can interface with
             for x in result.find_all("h2",attrs={'class':'a-size-mini a-spacing-none a-color-base s-line-clamp-2'}):
-                productLinks.append(x.a['href'])
+                link=x.a['href']
+                title=x.a.span.text
+                
 
-        for link in productLinks:
-            #We want to extract the data we need and put it into the product class
-            #Then hold a list of the products
-            data=self.saveThePage(link)#Save the page
-            title=data.find('span',attrs={'class':'a-size-large product-title-word-break'}).text
-            print(title)
+
+
+
+
 
 
 
