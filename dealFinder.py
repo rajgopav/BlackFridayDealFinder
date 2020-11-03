@@ -14,7 +14,7 @@ class DealFinder:
     that data as a csv file
     '''
     search=[]#this will hold the serch terms
-    product=[]#this will hold a list of the products found through the websites
+    products=[]#this will hold a list of the products found through the websites
     numDeals=0#This will hold the number of top deals that user wants to see
     topDeals=[]#this will hold the top deals
     depth=[]#the number of pages deep the script should go
@@ -47,6 +47,9 @@ class DealFinder:
     what this script is aming to solve.
     '''
 
+
+
+
     '''
     Now we will present the functions that will find the products from websites
     '''
@@ -62,20 +65,27 @@ class DealFinder:
                 #we are at the end
                 item = item + "+{}".format(words[i])
 
-        products=[]#will hold the links to the product pages
+        productLinks=[]#will hold the links to the product pages
         for i in range(1,depth+1):
             url="https://www.amazon.com/s?k={}&page={}&qid=1604344724&ref=sr_pg_{}".format(item,i,i)
             #with this url we can go through and get all the products on the page
             result=self.saveThePage(url)#this will create a soup object we can interface with
             for x in result.find_all("h2",attrs={'class':'a-size-mini a-spacing-none a-color-base s-line-clamp-2'}):
-                products.append(x.a['href'])
-        
+                productLinks.append(x.a['href'])
+
+        for link in productLinks:
+            #We want to extract the data we need and put it into the product class
+            #Then hold a list of the products
+            data=self.saveThePage(link)#Save the page
+            title=data.find('span',attrs={'class':'a-size-large product-title-word-break'}).text
+            print(title)
 
 
 
 
 
-        #products.append(self.saveThePage(pUrl))
+
+
 
 
 
