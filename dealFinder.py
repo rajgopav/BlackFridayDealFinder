@@ -84,16 +84,30 @@ class DealFinder:
                     c=prices[0]
                     p=prices[1]
                 self.products.append(Product(title,link,c,p))
-        
-
-
-
-
-
-
-
-
-
+    def findOnBestBuy(self,itemName,depth=11):
+        #Correctly search the item
+        item=''
+        words=itemName.split()
+        for i in range(0,len(words)):
+            #this will split the item's name by the number of words
+            if i==0:
+                item = item + "{}".format(words[i])
+            else:
+                #we are at the end
+                item = item + "%20{}".format(words[i])
+        for i in range(0,depth):
+            url="https://www.bestbuy.com/site/searchpage.jsp?_dyncharset=UTF-8&cp={}&id=pcat17071&iht=y&keys=keys&ks=960&list=n&sc=Global&st={}&type=page&usc=All%20Categories".format(i,item)
+            result=self.saveThePage(url=url)
+            #Now we want to save the products
+            for x in result.find_all("li",attrs={"class":"sku-item"}):
+                title=x.h4.a.text
+                link="https://www.bestbuy.com{}".format(x.h4.a['href'])
+                #p=x.find("div",attr={"class":"pricing-price__savings-regular-price"})
+                #print(p)
+                c=x.find("div",class_="priceView-hero-price priceView-customer-price").span.text
+                p=x.find("div",class_="pricing-price__regular-price").text.split()[1]
+                self.products.append(Product(title,link,c,p))
+                
 
 
 
@@ -124,6 +138,6 @@ class DealFinder:
 
 
 if __name__ == '__main__':
-    list=['monitor']
+    list=['monitor deals']
     s=DealFinder(list,10)
-    s.findonAmazon(list[0],2)
+    s.findOnBestBuy(list[0],2)
