@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup as soup
 import urllib.request as uReq
 from product import Product
 import pandas as pd
+import time
 
 class DealFinder:
     '''
@@ -65,15 +66,32 @@ class DealFinder:
                 #we are at the end
                 item = item + "+{}".format(words[i])
 
-        productLinks=[]#will hold the links to the product pages
         for i in range(1,depth+1):
             url="https://www.amazon.com/s?k={}&page={}&qid=1604344724&ref=sr_pg_{}".format(item,i,i)
             #with this url we can go through and get all the products on the page
             result=self.saveThePage(url)#this will create a soup object we can interface with
-            for x in result.find_all("h2",attrs={'class':'a-size-mini a-spacing-none a-color-base s-line-clamp-2'}):
-                link=x.a['href']
-                title=x.a.span.text
-                
+            for x in result.find_all("div",attrs={'class':'s-include-content-margin s-border-bottom s-latency-cf-section'}):
+                link="https://www.amazon.com{}".format(x.h2.a['href'])
+                title=x.h2.a.span.text
+                prices=x.find_all("span",attrs={"class":"a-offscreen"})
+                if len(prices)==1:
+                    c=prices[0]
+                    p=prices[0]
+                elif len(prices)==0:
+                    c=100000000000000000000000000#We just want to get rid of this basically
+                    p=100000000000000000000000000
+                else:
+                    c=prices[0]
+                    p=prices[1]
+                self.products.append(Product(title,link,c,p))
+        
+
+
+
+
+
+
+
 
 
 
@@ -106,6 +124,6 @@ class DealFinder:
 
 
 if __name__ == '__main__':
-    list=['Nintendo Switch']
+    list=['monitor']
     s=DealFinder(list,10)
     s.findonAmazon(list[0],2)

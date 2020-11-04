@@ -8,11 +8,16 @@ class Product:
     priceCurr=0.0#holds the current price
     link=""#this will hold the link for the Product
 
-    def __init__(self,name,pricePrev,priceCurr,link):
+    def __init__(self,name,link,c,p):
         self.name=name
-        self.pricePrev=pricePrev
-        self.priceCurr=priceCurr
         self.link=link
+        self.priceCurr=c
+        self.pricePrev=p
+
+    def setPricePrev(self,price):
+        self.pricePrev=price
+    def setPriceCurr(self,price):
+        self.priceCurr=price
 
 
     def getPriceDrop(self):
