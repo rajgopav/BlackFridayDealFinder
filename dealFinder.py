@@ -107,7 +107,7 @@ class DealFinder:
                 c=x.find("div",class_="priceView-hero-price priceView-customer-price").span.text
                 p=x.find("div",class_="pricing-price__regular-price").text.split()[1]
                 self.products.append(Product(title,link,c,p))
-                
+
 
 
 

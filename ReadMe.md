@@ -4,12 +4,12 @@ This will be a project that will find the deals with the most discounts across a
 
 ### The Stores
 
-- Amazon
-- Best Buy
+- Amazon(Complete)
+- Best Buy(Complete)
 - Target
 - Walmart
-
-
+- GameStop
+- Kohls
 
 ## Next Steps
 
