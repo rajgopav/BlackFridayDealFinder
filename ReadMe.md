@@ -7,10 +7,9 @@ This will be a project that will find the deals with the most discounts across a
 - Amazon(Complete)
 - Best Buy(Complete)
 - Target
-- Walmart
-- GameStop
-- Kohls
+- Nebraska Furniture Mart
+- Walmart(Done, but could use improvement)
 
 ## Next Steps
 
-A possible next step would be to create a django website to house and show all of these deals. 
+A possible next step would be to create a django website to house and show all of these deals. Walmart could use some work as well as it is really weird with its HTML where some items have different HTML fields making it very difficult to scrape

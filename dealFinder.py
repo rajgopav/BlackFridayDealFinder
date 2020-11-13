@@ -107,8 +107,43 @@ class DealFinder:
                 c=x.find("div",class_="priceView-hero-price priceView-customer-price").span.text
                 p=x.find("div",class_="pricing-price__regular-price").text.split()[1]
                 self.products.append(Product(title,link,c,p))
+    def findOnWalmart(self,itemName,depth=11):
+        #This will find deals on Nebraska furniture mart
 
-
+        #Correctly search the item
+        item=''
+        words=itemName.split()
+        for i in range(0,len(words)):
+            #this will split the item's name by the number of words
+            if i==0:
+                item = item + "{}".format(words[i])
+            else:
+                #we are at the end
+                item = item + "+{}".format(words[i])
+        for i in range(1,depth):
+            url="https://www.walmart.com/search/?page={}&ps=40&query={}".format(i,item)
+            try:
+                result = self.saveThePage(url).find('div',attrs={'class':"search-product-result"})
+            except:
+                pass#Walmart seems to be a little weird with their html
+            #Now we want to find all the products on the page
+            links=[]
+            titles=[]
+            currentPrices=[]
+            previousPrices=[]
+            for item in result.find_all("div",attrs={"class":"search-result-product-title gridview"}):
+                try:
+                    link=("https://www.walmart.com"+item.a['href'])
+                    page=self.saveThePage(link)
+                    title=page.h1.text
+                    #find the current price
+                    c=page.find("span",attrs={"id":"price"}).text.split("$")[1]
+                    p=page.find("div",attrs={"class":"price-old display-inline"}).text.split("$")[1]
+                except:
+                    pass#We only want to save things if there is a deal
+                #now once we know for sure we have all the data we need we can input the data
+                self.products.append(Product(title,link,c,p))
+        print(len(self.products))
 
 
 
@@ -138,6 +173,6 @@ class DealFinder:
 
 
 if __name__ == '__main__':
-    list=['monitor deals']
+    list=['noise cancelling headphones']
     s=DealFinder(list,10)
-    s.findOnBestBuy(list[0],2)
+    s.findOnWalmart(list[0],5)

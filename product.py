@@ -11,8 +11,8 @@ class Product:
     def __init__(self,name,link,c,p):
         self.name=name
         self.link=link
-        self.priceCurr=c
-        self.pricePrev=p
+        self.priceCurr=float(c)
+        self.pricePrev=float(p)
 
     def setPricePrev(self,price):
         self.pricePrev=price
