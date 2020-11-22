@@ -47,6 +47,20 @@ class DealFinder:
     a sorting algorithm would be more effective is at a point much greater than
     what this script is aming to solve.
     '''
+    def findTopDeals(self):
+        #We must find the top deal, then remove it from the list and continue
+        for i in range(1,self.numDeals):
+            #now we must find the max
+            maxDeal=Product("TEST","TEST",100,100)#A starter with 0% off
+            for deal in products:
+                if deal > maxDeal:
+                    #We want to replace the maxDeal with this better deal
+                    maxDeal=deal
+            # once we have found the maximum, then we can add it to our top deals list
+            self.append(maxDeal)
+            products.remove(maxDeal)#We want to remove it from the list so it doesn't show up again
+
+            
 
 
 
@@ -144,6 +158,8 @@ class DealFinder:
                 #now once we know for sure we have all the data we need we can input the data
                 self.products.append(Product(title,link,c,p))
         print(len(self.products))
+    def findOnNFM(self,itemName,depth=11):
+        #now we can attempt to find deals on NFM
 
 
 

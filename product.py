@@ -26,9 +26,20 @@ class Product:
 
     def getPriceDropPercentage(self):
         #this will get the price drop as a percentage
-        return (self.getPriceDrop)/self.pricePrev *100
+        return (self.getPriceDrop())/self.pricePrev *100
     def getName(self):
         return self.name
 
     def getLink(self):
-        return self.store
+        return self.link
+    def __gt__(self,other):
+        #This is the greater than function
+        return other.getPriceDropPercentage() > self.getPriceDropPercentage()
+
+
+
+if __name__ == '__main__':
+    x = Product("Test","test.com",100,200)#Should give 50% off
+    y = Product("hello","hello.com",100,200)#should give 67% offscreen
+    #Now we will compare them to see if the gt method works Correctly
+    print(x>y)#Seems to work perfectly!
