@@ -18,6 +18,8 @@ class Product:
         self.pricePrev=price
     def setPriceCurr(self,price):
         self.priceCurr=price
+    def getPrice(self):
+        return self.priceCurr
 
 
     def getPriceDrop(self):
@@ -34,12 +36,12 @@ class Product:
         return self.link
     def __gt__(self,other):
         #This is the greater than function
-        return other.getPriceDropPercentage() > self.getPriceDropPercentage()
+        return self.getPriceDropPercentage() > other.getPriceDropPercentage()
 
 
 
 if __name__ == '__main__':
     x = Product("Test","test.com",100,200)#Should give 50% off
-    y = Product("hello","hello.com",100,200)#should give 67% offscreen
+    y = Product("hello","hello.com",100,201)#should give 67% offscreen
     #Now we will compare them to see if the gt method works Correctly
     print(x>y)#Seems to work perfectly!
