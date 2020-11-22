@@ -4,6 +4,14 @@ This will be a project that will find the deals with the most discounts across a
 
 
 
+## How to Use the Script
+
+In order to use the Script, run the RunMe.py field in a terminal and answer the questions. Please be kind, I have not optimized the script to handle strange inputs and things like that so the script might break. As long as you search for items as you would on a search bar the script should work fine
+
+
+
+
+
 ### The Stores
 
 - Amazon(Complete)
