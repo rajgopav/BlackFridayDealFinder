@@ -6,7 +6,6 @@ from bs4 import BeautifulSoup as soup
 import urllib.request as uReq
 from product import Product
 import pandas as pd
-import time
 
 class DealFinder:
     '''
@@ -32,10 +31,6 @@ class DealFinder:
         response.close()
         return soup(content,'html.parser')
 
-
-
-
-
     #TODO: Method to get the top searches
     '''
     We have two possible options: Either to find the max through a linear search,
@@ -58,11 +53,6 @@ class DealFinder:
             # once we have found the maximum, then we can add it to our top deals list
             self.topDeals.append(maxDeal)
             self.products.remove(maxDeal)#We want to remove it from the list so it doesn't show up again
-
-
-
-
-
 
     '''
     Now we will present the functions that will find the products from websites
@@ -100,6 +90,7 @@ class DealFinder:
                     self.products.append(Product(title,link,c,p))
                 except:
                     pass
+                
     def findOnBestBuy(self,itemName,depth=11):
         #Correctly search the item
         item=''
@@ -173,15 +164,14 @@ class DealFinder:
         self.products=[]
         self.topDeals=[]
 
-
     def findAll(self,depth):
         #this is the main method that will find the top deals
         for item in self.search:
             self.findOnBestBuy(item,depth)
             print("Found Deals on Best Buy!")
-            print("We have {} deals so far".format(len(self.products)))
+            """ print("We have {} deals so far".format(len(self.products)))
             self.findOnWalmart(item,depth)
-            print("Found Deals on Walmart!")
+            print("Found Deals on Walmart!") """
             print("We have {} deals so far".format(len(self.products)))
             self.findonAmazon(item,depth)
             print("Found Deals on Amazon")
@@ -202,34 +192,6 @@ class DealFinder:
             filename="TopDeals-{}".format(item)
             deals.to_csv("{}.csv".format(filename))
             self.clearProductList()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 if __name__ == '__main__':
     list=['Monitor']
